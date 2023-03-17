@@ -19,13 +19,137 @@
         </button>
     </nav>
 
-    <main class="container">
+    <main class="container w-100">
+      <div>
+        <h3>Operational Status</h3>
+        <table class="table">
+          <tr>
+            <th class="w-50">Status</th>
+            <th>Action</th>
+          </tr>
+          <tr>
+            <td id="op-status"></td>
+            <td>
+              <btn class="btn btn-primary" id="toggle-operational">Pause</btn>
+              <btn class="btn btn-primary" id="check-operational">Check</btn>
+            </td>
+          </tr>
+          </table>
+      </div>
 
-        <div id="display-wrapper" class="top-20">
-        </div>
-        <div class="row top-20">
-            <label class="form">Flight</label> <input type="text" id="flight-number"> <btn class="btn btn-primary" id="submit-oracle">Submit to Oracles</btn>
-        </div>
+        <div>
+            <h3>Airlines</h3>
+            <table class="table">
+              <tr>
+                <th>Airline</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+              <tr>
+                <td>First Airline</td>
+                <td id="airline-1-status">Participant</td>
+                <td>
+                    <btn class="btn btn-primary" id="get-status-1">Status</btn>
+                </td>
+              </tr>
+              <tr>
+                <td>LATAM</td>
+                <td id="airline-2-status">Unknown</td>
+                <td>
+                  <btn class="btn btn-primary" id="register-airline-2">Register (from: First Airline)</btn>
+                  <btn class="btn btn-primary" id="submit-fund-2">Fund</btn>
+                  <btn class="btn btn-primary" id="get-status-2">Status</btn>
+                </td>
+              </tr>
+            </table>
+          </div>
+        <div>
+            <h3>Register Flight</h3>
+            <table class="table">
+              <tr>
+                <th>Airline</th>
+                <th>Flight Code</th>
+                <th>Departure</th>
+                <th>Contract Status</th>
+                <th>Action</th>
+              </tr>
+              <tr>
+                <td>First Airline</td>
+                <td>FA1111</td>
+                <td>23:30 PM</td>
+                <td id="flight-status-1"></td>
+                <td>
+                    <btn class="btn btn-primary" id="register-flight-1">Register</btn>
+                    <btn class="btn btn-primary" id="check-flight-status-1">Contract Status</btn>
+                    <btn class="btn btn-primary" id="submit-to-oracles-1">Submit Oracles</btn>
+                </td>
+              </tr>
+              <tr>
+                <td>LATAM</td>
+                <td>LT0001</td>
+                <td>23:59 PM</td>
+                <td id="flight-status-2"></td>
+                <td>
+                  <btn class="btn btn-primary" id="register-flight-2">Register</btn>
+                  <btn class="btn btn-primary" id="check-flight-status-2">Contract Status</btn>
+                  <btn class="btn btn-primary" id="submit-to-oracles-2">Submit Oracles</btn>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <div>
+            <h3>Passenger/Buy Insurance</h3>
+            <table class="table">
+              <tr>
+                <th>Passenger</th>
+                <th>Flight</th>
+                <th>Value (up to 1 ether)</th>
+                <th>Actions</th>
+              </tr>
+              <tr>
+                <td id="passenger-id"></td>
+                <td id="passenger-flight">
+                  <select id="flight-select" class="form-select" aria-label="Default select example">
+                    <option selected value="0">Select Flight</option>
+                    <option value="FA1111">FA1111</option>
+                    <option value="LT0001">LT0001</option>
+                  </select>
+                  <div id="flight-error"class="alert alert-danger invisible" role="alert">
+                    Select a flight
+                  </div>
+                </td>
+                <td id=passenger-value>
+                  <input id="insurance-value" class="form-control" type="text" placeholder="1.0 ether" aria-label="default input example">
+                  <div id="value-error"class="alert alert-danger invisible" role="alert">
+                    Value must be between 0 and 1 ether
+                  </div>
+                </td>
+                <td>
+                    <btn class="btn btn-primary" id="buy-insurance">Buy</btn>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <div>
+            <h3>Passenger/Withdraw</h3>
+            <table class="table">
+              <tr>
+                <th>Passenger</th>
+                <th>Balance</th>
+                <th>Actions</th>
+              </tr>
+              <tr>
+                <td id="passenger-address"></td>
+                <td id="passenger-balance"></td>
+                <td>
+                    <btn class="btn btn-primary" id="check-balance">Balance</btn>
+                    <btn class="btn btn-primary" id="withdraw">Withdraw</btn>
+                </td>
+              </tr>
+            </table>
+          </div>
     </main>
 
 </body>
