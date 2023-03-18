@@ -9,6 +9,7 @@ This repository contains Smart Contract code in Solidity (using Truffle), tests 
 To install, download or clone the repo, then:
 
 `npm install`
+
 `truffle compile`
 
 ## Develop Client
@@ -16,11 +17,13 @@ To install, download or clone the repo, then:
 To run truffle tests:
 
 `truffle test ./test/flightSurety.js`
+
 `truffle test ./test/oracles.js`
 
 To use the dapp:
 
 `truffle migrate`
+
 `npm run dapp`
 
 To view dapp:
@@ -32,14 +35,14 @@ Always connect to MetaMask before taking any actions via button in top-right cor
 ## Oracle Server
 
 `npm run server`
+
 `truffle test ./test/oracles.js`
 
 ## Deploy
 
 To build dapp for prod:
-`npm run dapp:prod`
 
-Deploy the contents of the ./dapp folder
+`npm run dapp:prod`
 
 ## Dependencies
 
@@ -53,26 +56,20 @@ Deploy the contents of the ./dapp folder
 
 The Dapp consists of 3 sections
 
+- Flight
+- Insurance
 - Airlines
-- Passengers
-- Admin Section
 
-### Airline Section
+### Flight Section Functions
 
-It contains the following functionalities
+- Register a flight
+- Fetch flight status
+
+### Insurance Section Functions
+
+- Purchase flight insurance
+- Withdrawal insurance amount
+
+### Airline Section Functions
 
 - Register an airline
-- Approve an airline
-- List Airlines
-- Pay Airline participation fees
-
-### Passenger Section
-
-It allows passengers to do the following
-
-- Purchase Flight Insurance
-- Withdrawal your Insurance Payout to your account
-
-### Admin Section
-
-It contains utility configurations to help with the testing of the application
