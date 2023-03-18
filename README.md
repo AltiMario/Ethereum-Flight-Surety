@@ -1,6 +1,6 @@
-# FlightSurety
+# Ethereum Flight Surety
 
-FlightSurety is a sample application project for Udacity's Blockchain course.
+FlightSurety is a flight insurance simulation on Ethereum blockchain. It is a decentralized application (dApp) that allows passengers to purchase flight insurance and get compensated in case of flight delay or cancellation.
 
 ## Install
 
@@ -25,9 +25,11 @@ To use the dapp:
 
 To view dapp:
 
-`http://localhost:8000`
+`http://localhost:3000`
 
-## Develop Server
+Always connect to MetaMask before taking any actions via button in top-right corner
+
+## Oracle Server
 
 `npm run server`
 `truffle test ./test/oracles.js`
@@ -39,14 +41,38 @@ To build dapp for prod:
 
 Deploy the contents of the ./dapp folder
 
+## Dependencies
 
-## Resources
+- Truffle v5.8.0 (core: 5.8.0)
+- Ganache v7.7.6
+- Solidity - ^0.8.16 (solc-js)
+- Node v18.14.2
+- Web3.js v1.8.2
 
-* [How does Ethereum work anyway?](https://medium.com/@preethikasireddy/how-does-ethereum-work-anyway-22d1df506369)
-* [BIP39 Mnemonic Generator](https://iancoleman.io/bip39/)
-* [Truffle Framework](http://truffleframework.com/)
-* [Ganache Local Blockchain](http://truffleframework.com/ganache/)
-* [Remix Solidity IDE](https://remix.ethereum.org/)
-* [Solidity Language Reference](http://solidity.readthedocs.io/en/v0.4.24/)
-* [Ethereum Blockchain Explorer](https://etherscan.io/)
-* [Web3Js Reference](https://github.com/ethereum/wiki/wiki/JavaScript-API)
+## Interacting with the DAPP
+
+The Dapp consists of 3 sections
+
+- Airlines
+- Passengers
+- Admin Section
+
+### Airline Section
+
+It contains the following functionalities
+
+- Register an airline
+- Approve an airline
+- List Airlines
+- Pay Airline participation fees
+
+### Passenger Section
+
+It allows passengers to do the following
+
+- Purchase Flight Insurance
+- Withdrawal your Insurance Payout to your account
+
+### Admin Section
+
+It contains utility configurations to help with the testing of the application
