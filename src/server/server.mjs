@@ -2,10 +2,16 @@ import FlightSuretyAppArtifact from "../../build/contracts/FlightSuretyApp.json"
 import Web3 from "web3";
 
 // CONST
-let N_ORACLES = 10;
+let N_ORACLES = 20;
 
 // Flight status codees
+// Flight status codees
+const STATUS_CODE_UNKNOWN = 0;
+const STATUS_CODE_ON_TIME = 10;
 const STATUS_CODE_LATE_AIRLINE = 20;
+const STATUS_CODE_LATE_WEATHER = 30;
+const STATUS_CODE_LATE_TECHNICAL = 40;
+const STATUS_CODE_LATE_OTHER = 50;
 let statuses = [STATUS_CODE_LATE_AIRLINE];
 
 // Initialise Web3
@@ -66,7 +72,6 @@ async function submitResponse(error, event) {
             );
             let choice = statuses.sample();
             console.log(`Choice ${choice}`);
-            // submit response
             await submitOracleResponse(
                 airline,
                 flight,
