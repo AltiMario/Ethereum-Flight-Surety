@@ -20,7 +20,7 @@ To run app tests:
 
 To use the dapp:
 
-`truffle migrate`
+`npm run migrate`
 
 `npm run dapp`
 
@@ -28,7 +28,7 @@ To view dapp:
 
 `http://localhost:3000`
 
-Always connect to MetaMask before taking any actions via button in top-right corner
+Always connect to MetaMask every time you change pages.
 
 ## Oracle Server
 
@@ -65,11 +65,17 @@ The Dapp consists of 3 sections
 - Register a flight
 - Fetch flight status
 
+![Flight section](./docs/flight.png)
+
 ### Insurance Section Functions
 
 - Purchase flight insurance
 - Withdrawal insurance amount
 
+![Insurance section](./docs/insurance.png)
+
 ### Airline Section Functions
 
 - Register an airline
+
+![Airline section](./docs/airline.png)
