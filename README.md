@@ -10,15 +10,13 @@ To install, download or clone the repo, then:
 
 `npm install`
 
-`truffle compile`
+`npm run compile`
 
 ## Develop Client
 
-To run truffle tests:
+To run app tests:
 
-`truffle test ./test/flightSurety.js`
-
-`truffle test ./test/oracles.js`
+`npm run test`
 
 To use the dapp:
 
@@ -36,7 +34,9 @@ Always connect to MetaMask before taking any actions via button in top-right cor
 
 `npm run server`
 
-`truffle test ./test/oracles.js`
+To run oracle tests:
+
+`npm run test-oracles`
 
 ## Deploy
 

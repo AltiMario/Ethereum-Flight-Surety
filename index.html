@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>FlightSurety</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css"
+        rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="./src/dapp/flightsurety.css" />
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="./src/dapp/index.js" type="module"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="./index.html">Flight</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="./src/dapp/insurance.html">Insurance</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="./src/dapp/airline.html">Airline</a>
+                </li>
+            </ul>
+        </div>
+        <button class="btn btn-outline-success" type="button" id="connect-web3">
+            Connect Metamask
+        </button>
+    </nav>
+
+    <div class="container">
+        <h2 style="text-align: center; font-weight: bold">Flight</h2>
+        <div class="row top-20">
+            <label class="form">Airline address</label>
+            <input type="text" id="airline-buyer" value="0x30C0DB6706b11881419bb83DfBF7Ff571b6D9844" />
+            <label class="form"> Flight number</label>
+            <input type="text" id="flight-number" value="ND1309" />
+            <label class="form"> Date </label>
+            <input type="text" id="flight-time" value="20230315" />
+        </div>
+
+        <div class="row top-20">
+            <btn class="btn btn-primary" id="register-flight" style="margin-left: 2em">Flight registration</btn>
+            <btn class="btn btn-primary" id="submit-oracle" style="margin-left: 2em">Flight status</btn>
+        </div>
+    </div>
+</body>
+
+</html>

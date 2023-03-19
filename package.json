@@ -9,6 +9,7 @@
       "compile": "truffle compile",
       "migrate": "truffle migrate --reset",
       "test": "truffle test ./test/flightSurety.js",
+      "test-oracles": "truffle test ./test/oracles.js",
       "dapp": "lite-server",
       "dapp:prod": "webpack --mode production  --config webpack.config.dapp.js",
       "server": "node ./src/server/server.mjs"
