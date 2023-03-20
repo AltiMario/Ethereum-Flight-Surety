@@ -13,13 +13,18 @@ contract FlightSuretyData {
     uint256 private constant AIRLINE_DEPOSIT = 10 ether;
     uint256 private constant MAX_INSURANCE = 1 ether;
 
-    // Flight status codees
+    // Flight status codes
     uint8 private constant STATUS_CODE_UNKNOWN = 0;
     uint8 private constant STATUS_CODE_ON_TIME = 10;
     uint8 private constant STATUS_CODE_LATE_AIRLINE = 20;
     uint8 private constant STATUS_CODE_LATE_WEATHER = 30;
     uint8 private constant STATUS_CODE_LATE_TECHNICAL = 40;
     uint8 private constant STATUS_CODE_LATE_OTHER = 50;
+    
+    // Airline status codes
+    uint8 private constant CANDIDATE = 0;
+    uint8 private constant REGISTERED = 1;
+    uint8 private constant PARTICIPANT = 2;
 
     // Admin
     address private contractOwner; // Account used to deploy contract
@@ -198,32 +203,25 @@ contract FlightSuretyData {
         return flights[flightKey].isRegistered;
     }
 
-    // function getFlightStatus(string memory flightCode) external view
-    // isCallerAuthorized
-    // returns(uint8 statusCode){
-    //     return flights[flightCode].statusCode;
-    // }
+    function isFlightInsured(bytes32 flightKey) public view returns (bool) {
+        return flights[flightKey].insuranceAvailable;
+    }
 
-    // function getAirlineStatus(address airline) public payable
-    // requireIsOperational
-    // returns(string memory status) {
+    function isInsuree(address insuree) public view returns (bool) {
+        return insureesBalance[insuree] > 0;
+    }
 
-    //     if (airlines[airline].isParticipant) {
-    //         return "Participant";
-    //     } else if (airlines[airline].isRegistered) {
-    //         return "Registered";
-    //     }
+    function isParticipatingAirline(address airline) public view returns (bool) {
+        return airlines[airline].isFunded;
+    }
 
-    //     return "Candidate";
-    // }
+    function isRegisteredAirline(address airline) public view returns (bool) {
+        return airlines[airline].isRegistered;
+    }
 
-    // function getInsurance(string memory flightCode) external view
-    // returns(uint num, bytes32 _key, bool settled, bool exist, uint256 amount) {
-
-    //     bytes32 key = keccak256(abi.encodePacked(msg.sender, flightCode));
-
-    //     return (flights[flightCode].insurees.length, key, insurances[key].settled, insurances[key].exist, insurances[key].amount);
-    // }
+    function fundAirline() external payable onlyParticipantAirlines {
+        airlines[tx.origin].isFunded = true;
+    }
 
     /********************************************************************************************/
     /*                                     SMART CONTRACT FUNCTIONS                             */

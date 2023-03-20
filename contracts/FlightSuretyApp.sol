@@ -16,6 +16,7 @@ contract FlightSuretyApp {
     /********************************************************************************************/
     /*                                       DATA VARIABLES                                     */
     /********************************************************************************************/
+    uint8 private constant STATUS_CODE_LATE_AIRLINE = 20;
 
     address private contractOwner; // Account used to deploy contract
     IDataContract dataContract;
@@ -38,6 +39,50 @@ contract FlightSuretyApp {
         _; // All modifiers require an "_" which indicates where the function body will be added
     }
 
+    modifier requireParticipatingAirline() {
+        require(
+            dataContract.isParticipatingAirline(msg.sender),
+            "Only participating airlines are allowed to perform this operation!"
+        );
+        _;
+    }
+
+    modifier isFlightRegistered(bytes32 flightKey) {
+        require(
+            dataContract.isFlightRegistered(flightKey),
+            "Flight is not registered"
+        );
+        _;
+    }
+
+    modifier isFlightInsured(bytes32 flightKey) {
+        require(
+            dataContract.isFlightInsured(msg.sender, flightKey),
+            "Flight is not insured"
+        );
+        _;
+    }
+
+    modifier isInsuree(address insuree) {
+        require(dataContract.isInsuree(insuree), "Insuree is not registered");
+        _;
+    }
+
+    modifier isRegisteredAirline(address airline) {
+        require(
+            dataContract.isRegisteredAirline(airline),
+            "Airline is not registered"
+        );
+        _;
+    }
+    
+    modifier fundAirline () {
+        require(
+            dataContract.isAirlineFunded(msg.sender),
+            "Airline is not funded"
+        );
+        _;
+    }
     /**
      * @dev Modifier that requires the "ContractOwner" account to be the function caller
      */
@@ -206,6 +251,10 @@ contract FlightSuretyApp {
     );
     event OracleRegistered(address oracleAdress);
 
+    function isOracleAlreadyRegistered() external view returns (bool) {
+        return oracles[msg.sender].isRegistered;
+    }
+
     // Register an oracle with the contract
     function registerOracle() external payable {
         // Require registration fee
@@ -224,6 +273,19 @@ contract FlightSuretyApp {
         } else {
             emit OracleRegistered(msg.sender);
         }
+    }
+
+    function isOracleRequestOpenForIndex(
+        address airline,
+        string memory flight,
+        uint256 timestamp,
+        uint8 index
+    ) external view requireIsOperational returns (bool) {
+        bytes32 key = keccak256(
+            abi.encodePacked(index, airline, flight, timestamp)
+        );
+
+        return oracleResponses[key].isOpen;
     }
 
     function getMyIndexes() external view returns (uint8[3] memory) {
@@ -315,16 +377,23 @@ contract FlightSuretyApp {
 
     // Returns array of three non-duplicating integers from 0-9
     function getRandomIndex(address account) internal returns (uint8) {
-        uint8 maxValue = 5;
+        uint8 maxValue = 10;
 
         // Pseudo random number...the incrementing nonce adds variation
         uint8 random = uint8(
-            uint256(keccak256(abi.encodePacked(nonce++, account))) % maxValue
+            uint256(
+                keccak256(
+                    abi.encodePacked(blockhash(block.number - nonce++), account)
+                )
+            ) % maxValue
         );
+
+        if (nonce > 250) {
+            nonce = 0;
+        }
 
         return random;
     }
-
 }
 
 interface IDataContract {
@@ -346,4 +415,19 @@ interface IDataContract {
     function isOperational() external view returns (bool);
 
     function isFlightRegistered(bytes32 flightKey) external view returns (bool);
+
+    function isParticipatingAirline(
+        address airline
+    ) external view returns (bool);
+
+    function isFlightInsured(
+        address passenger,
+        bytes32 flightKey
+    ) external view returns (bool);
+
+    function isInsuree(address insuree) external view returns (bool);
+
+    function isRegisteredAirline(address airline) external view returns (bool);
+
+    function isAirlineFunded(address airline) external view returns (bool);
 }
