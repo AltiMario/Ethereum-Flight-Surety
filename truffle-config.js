@@ -1,6 +1,6 @@
 module.exports = {
     networks: {
-        develop: {
+        test: {
             network_id: 7545,
             accounts: 50,
         },
@@ -18,3 +18,4 @@ module.exports = {
         },
     },
 };
+
