@@ -196,6 +196,7 @@ contract FlightSuretyApp {
     // Number of oracles that must respond for valid status
     uint256 private constant MIN_RESPONSES = 3;
 
+
     struct Oracle {
         bool isRegistered;
         uint8[3] indexes;
@@ -379,17 +380,7 @@ function registerOracle() external payable requireIsOperational {
         uint8 maxValue = 10;
 
         // Pseudo random number...the incrementing nonce adds variation
-        uint8 random = uint8(
-            uint256(
-                keccak256(
-                    abi.encodePacked(blockhash(block.number - nonce++), account)
-                )
-            ) % maxValue
-        );
-
-        if (nonce > 250) {
-            nonce = 0;
-        }
+        uint8 random = uint8(uint256(keccak256(abi.encodePacked(nonce++, account))) % maxValue);
 
         return random;
     }

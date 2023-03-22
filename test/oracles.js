@@ -22,9 +22,7 @@ contract("Oracles", async (accounts) => {
             let result = await config.flightSuretyApp.getMyIndexes.call({
                 from: accounts[a],
             });
-            console.log(
-                `Oracle : ${result[0]}, ${result[1]}, ${result[2]}`
-            );
+            console.log(`Oracle ${a} : ${result[0]}, ${result[1]}, ${result[2]}`);
         }
     });
 

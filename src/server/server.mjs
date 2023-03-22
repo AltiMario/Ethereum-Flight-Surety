@@ -41,7 +41,7 @@ for (let a = 0; a < N_ORACLES; a++) {
     let result = await getMyIndexes().call({
         from: accounts[a],
     });
-    console.log(`Oracle : ${result[0]}, ${result[1]}, ${result[2]}`);
+    console.log(`Oracle ${a} : ${result[0]}, ${result[1]}, ${result[2]}`);
 }
 
 // Subscribe to OracleRequest event and respond with all oracles available
