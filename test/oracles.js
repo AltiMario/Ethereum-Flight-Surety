@@ -1,7 +1,7 @@
 var Test = require("../config/testConfig.js");
 
 contract("Oracles", async (accounts) => {
-    const TEST_ORACLES_COUNT = 20;
+    const TEST_ORACLES_COUNT = 25;
     var config;
     const STATUS_CODE_ON_TIME = 10;
 
@@ -14,7 +14,7 @@ contract("Oracles", async (accounts) => {
         let fee = await config.flightSuretyApp.REGISTRATION_FEE.call();
 
         // ACT
-        for (let a = 1; a < TEST_ORACLES_COUNT; a++) {
+        for (let a = 0; a < TEST_ORACLES_COUNT; a++) {
             await config.flightSuretyApp.registerOracle({
                 from: accounts[a],
                 value: fee,
@@ -22,7 +22,7 @@ contract("Oracles", async (accounts) => {
             let result = await config.flightSuretyApp.getMyIndexes.call({
                 from: accounts[a],
             });
-            console.log(`Oracle ${a} : ${result[0]}, ${result[1]}, ${result[2]}`);
+            console.log(`Oracle #${a} : ${result[0]}, ${result[1]}, ${result[2]} | \n `);
         }
     });
 
@@ -43,24 +43,31 @@ contract("Oracles", async (accounts) => {
         // loop through all the accounts and for each account, all its Indexes (indices?)
         // and submit a response. The contract will reject a submission if it was
         // not requested so while sub-optimal, it's a good test of that feature
-        for (let a = 1; a < TEST_ORACLES_COUNT; a++) {
+        for (let a = 0; a < TEST_ORACLES_COUNT; a++) {
             // Get oracle information
             let oracleIndexes = await config.flightSuretyApp.getMyIndexes.call({
                 from: accounts[a],
             });
             for (let idx = 0; idx < 3; idx++) {
                 // Submit a response...it will only be accepted if there is an Index match
-                config.flightSuretyApp
-                    .submitOracleResponse(
-                        config.firstAirline,
-                        flight,
-                        timestamp,
-                        STATUS_CODE_ON_TIME,
-                        { from: accounts[a] }
-                    )
-                    .catch((res) => {
-                        console.log(res["reason"]);
-                    });
+                try {                
+                    await config.flightSuretyApp
+                        .submitOracleResponse(
+                            oracleIndexes[idx], 
+                            config.firstAirline, 
+                            flight, 
+                            timestamp, 
+                            STATUS_CODE_ON_TIME, 
+                            { from: accounts[a] });
+                     }
+                        catch(e) {
+                            // Enable this when debugging
+                            //console.log(` \n `);
+                            //console.log(`Cycle #${a} : ${accounts[a]}, ${idx}`);
+                            console.log(res["reason"]);
+                            console.log('\nError', idx, oracleIndexes[idx].toNumber(), flight, timestamp);
+                    }
+            
             }
         }
     });

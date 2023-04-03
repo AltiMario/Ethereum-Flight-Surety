@@ -5,6 +5,7 @@ FlightSurety is a flight insurance simulation on Ethereum blockchain. It is a de
 ## Install
 
 This repository contains Smart Contract code in Solidity (using Truffle), tests (also using Truffle), dApp scaffolding (using HTML, CSS and JS) and server app scaffolding.
+Set Ganache to allow for 25+ accounts.
 
 To install, download or clone the repo, then:
 

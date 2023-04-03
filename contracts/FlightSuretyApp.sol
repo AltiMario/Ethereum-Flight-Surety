@@ -301,6 +301,7 @@ function registerOracle() external payable requireIsOperational {
     // and matches one of the three Indexes randomly assigned to the oracle at the
     // time of registration (i.e. uninvited oracles are not welcome)
     function submitOracleResponse(
+        uint8 index,
         address airline,
         string memory flight,
         uint256 flightTimestamp,
@@ -309,9 +310,9 @@ function registerOracle() external payable requireIsOperational {
         bytes32 flightKey = getFlightKey(airline, flight, flightTimestamp);
         uint8 responseIndex = oracleResponses[flightKey].responseIndex;
         require(
-            (oracles[msg.sender].indexes[0] == responseIndex) ||
-                (oracles[msg.sender].indexes[1] == responseIndex) ||
-                (oracles[msg.sender].indexes[2] == responseIndex),
+            (oracles[msg.sender].indexes[0] == index) ||
+                (oracles[msg.sender].indexes[1] == index) ||
+                (oracles[msg.sender].indexes[2] == index),
             "Index does not match oracle request"
         );
 

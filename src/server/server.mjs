@@ -2,7 +2,7 @@ import FlightSuretyAppArtifact from "../../build/contracts/FlightSuretyApp.json"
 import Web3 from "web3";
 
 // CONST
-let N_ORACLES = 5;
+let N_ORACLES = 25;
 
 // Flight status codees
 const STATUS_CODE_UNKNOWN = 0;
